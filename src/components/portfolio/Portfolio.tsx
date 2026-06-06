@@ -95,10 +95,10 @@ export function Portfolio() {
                 </div>
                 <div className="mt-6 flex gap-2 pt-2">
                   <Button size="sm" className="flex-1 bg-gradient-hero hover:opacity-90" asChild>
-                    <a href="#"><ExternalLink className="mr-1 h-3.5 w-3.5" /> Live Demo</a>
+                    <a href={p.live} target="_blank" rel="noopener noreferrer"><ExternalLink className="mr-1 h-3.5 w-3.5" /> Live Demo</a>
                   </Button>
                   <Button size="sm" variant="outline" className="flex-1" asChild>
-                    <a href="#"><Github className="mr-1 h-3.5 w-3.5" /> Project Link</a>
+                    <a href={p.repo} target="_blank" rel="noopener noreferrer"><Github className="mr-1 h-3.5 w-3.5" /> Project Link</a>
                   </Button>
                 </div>
               </div>
