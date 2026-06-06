@@ -1,8 +1,8 @@
 import { ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import business from "@/assets/project-business.jpg";
+import business from "@/assets/project-salso.png";
 import ecommerce from "@/assets/project-ecommerce.jpg";
-import law from "@/assets/project-law.jpg";
+import law from "@/assets/project-rweyongeza.png";
 import school from "@/assets/project-school.jpg";
 import portfolio from "@/assets/project-portfolio.jpg";
 import ngo from "@/assets/project-ngo.jpg";
