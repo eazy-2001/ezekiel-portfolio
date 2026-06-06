@@ -9,40 +9,52 @@ import ngo from "@/assets/project-ngo.jpg";
 
 const projects = [
   {
+    img: law,
+    title: "Rweyongeza Advocates",
+    desc: "Professional law firm website with practice areas, attorney profiles and enquiry forms.",
+    tech: ["WordPress", "Responsive Design", "SEO"],
+    live: "https://rweyongezaadvocates.or.tz",
+    repo: "https://rweyongezaadvocates.or.tz",
+  },
+  {
     img: business,
-    title: "Business Website Design",
-    desc: "A modern corporate site engineered for conversion, with rich content blocks and SEO-ready structure.",
+    title: "Salso Solutions",
+    desc: "A modern business website for a Tanzanian solutions company — clean layout, conversion-focused.",
     tech: ["HTML5", "CSS3", "JavaScript", "WordPress"],
+    live: "https://salso.solutions.tz",
+    repo: "https://salso.solutions.tz",
   },
   {
     img: ecommerce,
     title: "E-commerce Website",
     desc: "A polished online store with product catalog, cart and secure checkout flow.",
     tech: ["WordPress", "WooCommerce", "UI/UX"],
-  },
-  {
-    img: law,
-    title: "Law Firm Website",
-    desc: "An authoritative website for legal professionals — practice areas, attorney bios, and case enquiry.",
-    tech: ["HTML5", "CSS3", "JavaScript"],
+    live: "#",
+    repo: "#",
   },
   {
     img: school,
     title: "School Management Website",
     desc: "Information portal with admissions, news, staff directory and student resources.",
     tech: ["WordPress", "Responsive Design"],
+    live: "#",
+    repo: "#",
   },
   {
     img: portfolio,
     title: "Personal Portfolio Website",
     desc: "A minimalist portfolio that showcases creative work with smooth animations.",
     tech: ["HTML5", "CSS3", "JavaScript"],
+    live: "#",
+    repo: "#",
   },
   {
     img: ngo,
     title: "NGO Website",
     desc: "Mission-driven site for a nonprofit with donations, programs and impact storytelling.",
     tech: ["WordPress", "UI/UX", "SEO"],
+    live: "#",
+    repo: "#",
   },
 ];
 
@@ -83,10 +95,10 @@ export function Portfolio() {
                 </div>
                 <div className="mt-6 flex gap-2 pt-2">
                   <Button size="sm" className="flex-1 bg-gradient-hero hover:opacity-90" asChild>
-                    <a href="#"><ExternalLink className="mr-1 h-3.5 w-3.5" /> Live Demo</a>
+                    <a href={p.live} target="_blank" rel="noopener noreferrer"><ExternalLink className="mr-1 h-3.5 w-3.5" /> Live Demo</a>
                   </Button>
                   <Button size="sm" variant="outline" className="flex-1" asChild>
-                    <a href="#"><Github className="mr-1 h-3.5 w-3.5" /> Project Link</a>
+                    <a href={p.repo} target="_blank" rel="noopener noreferrer"><Github className="mr-1 h-3.5 w-3.5" /> Project Link</a>
                   </Button>
                 </div>
               </div>
