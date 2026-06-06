@@ -1,10 +1,13 @@
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import portrait from "@/assets/portrait.jpg";
+import portrait from "@/assets/portrait.png.asset.json";
+import cv from "@/assets/cv.pdf.asset.json";
 
-export function Hero() {
+type HeroProps = { onNavigate?: (section: string) => void };
+
+export function Hero({ onNavigate }: HeroProps) {
   return (
-    <section id="home" className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">
+    <section id="home" className="relative overflow-hidden pt-16 pb-20 md:pt-20 md:pb-28">
       <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
       <div className="absolute top-20 right-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl animate-float" />
       <div className="container relative mx-auto grid items-center gap-12 px-4 md:px-8 lg:grid-cols-2">
@@ -30,25 +33,23 @@ export function Hero() {
             businesses and individuals.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button size="lg" className="bg-gradient-hero shadow-elegant hover:opacity-90" asChild>
-              <a href="#portfolio">
-                View Projects <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
+            <Button size="lg" className="bg-gradient-hero shadow-elegant hover:opacity-90" onClick={() => onNavigate?.("portfolio")}>
+              View Projects <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="#" download>
+              <a href={cv.url} download="Ezekiel_Kwabila_CV.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="mr-1 h-4 w-4" /> Download CV
               </a>
             </Button>
           </div>
           <div className="mt-8 flex items-center gap-4">
-            <a href="#" className="text-muted-foreground transition-colors hover:text-primary" aria-label="GitHub">
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary" aria-label="GitHub">
               <Github className="h-5 w-5" />
             </a>
-            <a href="#" className="text-muted-foreground transition-colors hover:text-primary" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/ezekiel-kwabila-56026838" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary" aria-label="LinkedIn">
               <Linkedin className="h-5 w-5" />
             </a>
-            <a href="#contact" className="text-muted-foreground transition-colors hover:text-primary" aria-label="Email">
+            <a href="mailto:kwabilaezekiel7@gmail.com" className="text-muted-foreground transition-colors hover:text-primary" aria-label="Email">
               <Mail className="h-5 w-5" />
             </a>
           </div>
@@ -57,10 +58,8 @@ export function Hero() {
           <div className="absolute -inset-4 bg-gradient-hero rounded-3xl opacity-20 blur-2xl" />
           <div className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-elegant">
             <img
-              src={portrait}
+              src={portrait.url}
               alt="Ezekiel Pascal Kwabila portrait"
-              width={896}
-              height={1152}
               className="h-full w-full object-cover"
             />
           </div>

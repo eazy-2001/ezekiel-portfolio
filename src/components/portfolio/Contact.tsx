@@ -7,10 +7,10 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 const details = [
-  { icon: Mail, label: "Email", value: "your-email@example.com", href: "mailto:your-email@example.com" },
-  { icon: Phone, label: "Phone", value: "+000 000 0000", href: "tel:+0000000000" },
-  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/your-profile", href: "#" },
-  { icon: Github, label: "GitHub", value: "github.com/your-profile", href: "#" },
+  { icon: Mail, label: "Email", value: "kwabilaezekiel7@gmail.com", href: "mailto:kwabilaezekiel7@gmail.com" },
+  { icon: Phone, label: "Phone", value: "+255 613 208 933", href: "tel:+255613208933" },
+  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/ezekiel-kwabila-56026838", href: "https://www.linkedin.com/in/ezekiel-kwabila-56026838" },
+  { icon: Github, label: "GitHub", value: "github.com/ezekielkwabila", href: "https://github.com/" },
 ];
 
 export function Contact() {
@@ -22,12 +22,15 @@ export function Contact() {
       toast.error("Please fill in all fields.");
       return;
     }
-    toast.success("Message sent! I'll get back to you soon.");
+    const subject = encodeURIComponent(`Portfolio message from ${form.name}`);
+    const body = encodeURIComponent(`${form.message}\n\nFrom: ${form.name} <${form.email}>`);
+    window.location.href = `mailto:kwabilaezekiel7@gmail.com?subject=${subject}&body=${body}`;
+    toast.success("Opening your email client...");
     setForm({ name: "", email: "", message: "" });
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28">
+    <section id="contact" className="py-12 md:py-20">
       <div className="container mx-auto px-4 md:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Contact</p>
@@ -43,6 +46,8 @@ export function Contact() {
               <a
                 key={label}
                 href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-card transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-elegant"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-hero text-primary-foreground shadow-glow">
@@ -63,39 +68,16 @@ export function Contact() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <Label htmlFor="name">Full name</Label>
-                <Input
-                  id="name"
-                  maxLength={100}
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder="Your name"
-                  className="mt-1.5"
-                />
+                <Input id="name" maxLength={100} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" className="mt-1.5" />
               </div>
               <div>
                 <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  maxLength={255}
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="you@example.com"
-                  className="mt-1.5"
-                />
+                <Input id="email" type="email" maxLength={255} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="you@example.com" className="mt-1.5" />
               </div>
             </div>
             <div className="mt-4">
               <Label htmlFor="message">Message</Label>
-              <Textarea
-                id="message"
-                rows={5}
-                maxLength={1000}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="Tell me a bit about your project..."
-                className="mt-1.5 resize-none"
-              />
+              <Textarea id="message" rows={5} maxLength={1000} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Tell me a bit about your project..." className="mt-1.5 resize-none" />
             </div>
             <Button type="submit" size="lg" className="mt-6 w-full bg-gradient-hero shadow-elegant hover:opacity-90">
               Send Message <Send className="ml-2 h-4 w-4" />
