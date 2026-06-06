@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const details = [
   { icon: Mail, label: "Email", value: "kwabilaezekiel7@gmail.com", href: "mailto:kwabilaezekiel7@gmail.com" },
@@ -13,20 +14,42 @@ const details = [
   { icon: Github, label: "GitHub", value: "github.com/ezekielkwabila", href: "https://github.com/" },
 ];
 
-export function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+const initialForm = { name: "", email: "", subject: "", message: "" };
 
-  const onSubmit = (e: React.FormEvent) => {
+export function Contact() {
+  const [form, setForm] = useState(initialForm);
+  const [submitting, setSubmitting] = useState(false);
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const subject = form.subject.trim();
+    const message = form.message.trim();
+
+    if (!name || !email || !subject || !message) {
       toast.error("Please fill in all fields.");
       return;
     }
-    const subject = encodeURIComponent(`Portfolio message from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\nFrom: ${form.name} <${form.email}>`);
-    window.location.href = `mailto:kwabilaezekiel7@gmail.com?subject=${subject}&body=${body}`;
-    toast.success("Opening your email client...");
-    setForm({ name: "", email: "", message: "" });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setSubmitting(true);
+    const { error } = await supabase
+      .from("contact_messages")
+      .insert({ name, email, subject, message });
+    setSubmitting(false);
+
+    if (error) {
+      console.error(error);
+      toast.error("Could not send message. Please try again.");
+      return;
+    }
+
+    toast.success("Message sent successfully");
+    setForm(initialForm);
   };
 
   return (
@@ -76,11 +99,15 @@ export function Contact() {
               </div>
             </div>
             <div className="mt-4">
-              <Label htmlFor="message">Message</Label>
-              <Textarea id="message" rows={5} maxLength={1000} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Tell me a bit about your project..." className="mt-1.5 resize-none" />
+              <Label htmlFor="subject">Subject</Label>
+              <Input id="subject" maxLength={200} value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} placeholder="What's this about?" className="mt-1.5" />
             </div>
-            <Button type="submit" size="lg" className="mt-6 w-full bg-gradient-hero shadow-elegant hover:opacity-90">
-              Send Message <Send className="ml-2 h-4 w-4" />
+            <div className="mt-4">
+              <Label htmlFor="message">Message</Label>
+              <Textarea id="message" rows={5} maxLength={2000} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Tell me a bit about your project..." className="mt-1.5 resize-none" />
+            </div>
+            <Button type="submit" size="lg" disabled={submitting} className="mt-6 w-full bg-gradient-hero shadow-elegant hover:opacity-90">
+              {submitting ? "Sending..." : (<>Send Message <Send className="ml-2 h-4 w-4" /></>)}
             </Button>
           </form>
         </div>
