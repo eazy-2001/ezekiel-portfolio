@@ -5,6 +5,25 @@ import cv from "@/assets/cv.pdf.asset.json";
 
 type HeroProps = { onNavigate?: (section: string) => void };
 
+const downloadFile = async (url: string, filename: string) => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Download failed");
+
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = blobUrl;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(blobUrl);
+  } catch {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+};
+
 export function Hero({ onNavigate }: HeroProps) {
   return (
     <section id="home" className="relative overflow-hidden pt-16 pb-20 md:pt-20 md:pb-28">
@@ -36,10 +55,8 @@ export function Hero({ onNavigate }: HeroProps) {
             <Button size="lg" className="bg-gradient-hero shadow-elegant hover:opacity-90" onClick={() => onNavigate?.("portfolio")}>
               View Projects <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" asChild>
-              <a href={cv.url} download="Ezekiel_Kwabila_CV.pdf" target="_blank" rel="noopener noreferrer">
-                <Download className="mr-1 h-4 w-4" /> Download CV
-              </a>
+            <Button size="lg" variant="outline" onClick={() => downloadFile(cv.url, "Ezekiel_Kwabila_CV.pdf")}>
+              <Download className="mr-1 h-4 w-4" /> Download CV
             </Button>
           </div>
           <div className="mt-8 flex items-center gap-4">
