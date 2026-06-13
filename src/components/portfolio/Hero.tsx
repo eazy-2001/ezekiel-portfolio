@@ -1,7 +1,7 @@
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import portrait from "@/assets/portrait.png.asset.json";
-import cv from "@/assets/cv.pdf.asset.json";
+import portrait from "@/assets/IMG_3689.PNG";
+import cv from "@/assets/Ezekiel_Kwabila_CV-3.pdf";
 
 type HeroProps = { onNavigate?: (section: string) => void };
 
@@ -46,6 +46,7 @@ export function Hero({ onNavigate }: HeroProps) {
             Web Designer · IT Specialist · Law Student
           </p>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
+
             I am a passionate web designer and technology enthusiast with experience in creating
             modern, user-friendly, and responsive websites. Alongside my Bachelor of Laws studies,
             I continuously develop my digital skills to provide innovative web solutions for
@@ -55,8 +56,8 @@ export function Hero({ onNavigate }: HeroProps) {
             <Button size="lg" className="bg-gradient-hero shadow-elegant hover:opacity-90" onClick={() => onNavigate?.("portfolio")}>
               View Projects <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" onClick={() => downloadFile(cv.url, "Ezekiel_Kwabila_CV.pdf")}>
-              <Download className="mr-1 h-4 w-4" /> Download CV
+            <Button size="lg" variant="outline" onClick={() => window.open("/cv.pdf", "_blank")}>
+              onClick={() => window.open("/cv.pdf", "_blank")}
             </Button>
           </div>
           <div className="mt-8 flex items-center gap-4">
@@ -75,7 +76,7 @@ export function Hero({ onNavigate }: HeroProps) {
           <div className="absolute -inset-4 bg-gradient-hero rounded-3xl opacity-20 blur-2xl" />
           <div className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-elegant">
             <img
-              src={portrait.url}
+              src={portrait}
               alt="Ezekiel Pascal Kwabila portrait"
               className="h-full w-full object-cover"
             />
@@ -93,3 +94,4 @@ export function Hero({ onNavigate }: HeroProps) {
     </section>
   );
 }
+
